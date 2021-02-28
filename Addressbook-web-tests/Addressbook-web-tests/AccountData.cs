@@ -40,7 +40,7 @@ namespace Addressbook_web_tests
                 this.password = value;
             }
 
-        }
+        } 
 
     }
 }

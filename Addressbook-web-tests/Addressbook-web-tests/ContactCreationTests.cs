@@ -4,24 +4,22 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 
-
 namespace Addressbook_web_tests
 {
     [TestFixture]
-    public class GroupRemovalTests : TestBase
+    public class ContactCreationTests : TestBase
     {
-        
 
         [Test]
-        public void GroupRemovalTest()
+        public void ContactCreationTest()
         {
             OpenMainPage();
             Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            SelectGroup(1);
-            RemoveGroup();
-            ReturnToGroupsPage();
+            AddNewContact();
+            FillContactForm(new ContactData("FirstName", "MiddleName", "LastNBame"));
+            SubmitContactCreation();
+            GoToHomePage();
             Logout();
         }
-    } 
+    }
 }

@@ -21,11 +21,11 @@ namespace Addressbook_web_tests
             InitNewGroupCreation();
             GroupData group = new GroupData("XXX");
             group.Header = "YYY";
-            group.Header = "ZZZ";
+            group.Footer = "ZZZ";
             FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();
             Logout();
-        }
+        } 
     }
 }
