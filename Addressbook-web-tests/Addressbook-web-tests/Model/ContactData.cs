@@ -12,11 +12,9 @@ namespace Addressbook_web_tests
         private string middlename = "";
         private string lastname = "";
 
-        public ContactData(string firstname, string middlename, string lastname)
+        public ContactData(string firstname)
         {
             this.firstname = firstname;
-            this.middlename = middlename;
-            this.lastname = lastname;
         }
         public string Firstname
         {

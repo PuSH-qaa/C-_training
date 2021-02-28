@@ -16,6 +16,8 @@ namespace Addressbook_web_tests
         public void SetupTest()
         {
             app = new ApplicationManager();
+            app.Navigator.OpenMainPage();
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
 
         [TearDown]
@@ -23,5 +25,6 @@ namespace Addressbook_web_tests
         {
             app.Stop();
         }
+
     }
 }
