@@ -26,23 +26,25 @@ namespace Addressbook_web_tests
         }
         public GroupHelper Remove(int index)
         {
-            manager.Navigator.GoToGroupsPage();
-            if (! IsElementPresent(By.Name("selected[]")))
-            {
-                GroupData group = new GroupData("XXX");
-                group.Header = "YYY";
-                group.Footer = "ZZZ";
-                Create(group);
-                manager.Navigator.ReturnToGroupsPage();
-            }
+            CheckAndCreateGroupIfItIsNotExist();
             SelectGroup(index);
             RemoveGroup();
             return this;
         }
         public GroupHelper UpdateGroup(GroupData newData, int a)
         {
+            CheckAndCreateGroupIfItIsNotExist();
+            SelectGroup(a);
+            EditGroup();
+            FillGroupForm(newData);
+            SubmitGroupUpdating();
+            return this;
+        }
+
+        private void CheckAndCreateGroupIfItIsNotExist()
+        {
             manager.Navigator.GoToGroupsPage();
-            if (! IsElementPresent(By.Name("selected[]")))
+            if (!IsElementPresent(By.Name("selected[]")))
             {
                 GroupData group = new GroupData("XXX");
                 group.Header = "YYY";
@@ -50,12 +52,8 @@ namespace Addressbook_web_tests
                 Create(group);
                 manager.Navigator.ReturnToGroupsPage();
             }
-            SelectGroup(a);
-            EditGroup();
-            FillGroupForm(newData);
-            SubmitGroupUpdating();
-            return this;
         }
+
         public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();

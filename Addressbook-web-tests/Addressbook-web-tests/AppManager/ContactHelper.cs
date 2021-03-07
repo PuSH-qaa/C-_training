@@ -22,23 +22,22 @@ namespace Addressbook_web_tests
         }
         public ContactHelper UpdateContact(ContactData newData, int i)
         {
-            manager.Navigator.GoToHomePage();
-            if (! IsElementPresent(By.XPath("//img[@alt='Edit']")))
-            {
-                AddNewContact();
-                ContactData contact = new ContactData("FirstName");
-                contact.Middlename = "MiddleName";
-                contact.Middlename = "LastName";
-                FillContactForm(contact);
-                SubmitContactCreation();
-                manager.Navigator.ReturnToHomePage();
-            }
+            CheckAndCreateContactIfItIsNotExist();
             EditContact(i);
             FillContactForm(newData);
             SubmitContactUpdating();
             return this;
         }
+
         public ContactHelper Remove(int n)
+        {
+            CheckAndCreateContactIfItIsNotExist();
+            SelectContact(n);
+            RemoveContact();
+            AcceptRemoving();
+            return this;
+        }
+        private void CheckAndCreateContactIfItIsNotExist()
         {
             manager.Navigator.GoToHomePage();
             if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
@@ -51,10 +50,6 @@ namespace Addressbook_web_tests
                 SubmitContactCreation();
                 manager.Navigator.ReturnToHomePage();
             }
-            SelectContact(n);
-            RemoveContact();
-            AcceptRemoving();
-            return this;
         }
 
         public ContactHelper FillContactForm(ContactData contact)
