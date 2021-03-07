@@ -17,7 +17,7 @@ namespace Addressbook_web_tests
             newData.Header = "999";
             newData.Footer = "888";
 
-            app.Groups.UpdateGroup(newData, 2);
+            app.Groups.UpdateGroup(newData, 1);
             app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }

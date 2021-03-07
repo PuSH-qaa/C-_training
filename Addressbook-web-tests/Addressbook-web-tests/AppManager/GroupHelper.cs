@@ -24,16 +24,32 @@ namespace Addressbook_web_tests
             SubmitGroupCreation();
             return this;
         }
-        public GroupHelper Remove(int v)
+        public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(v);
+            if (! IsElementPresent(By.Name("selected[]")))
+            {
+                GroupData group = new GroupData("XXX");
+                group.Header = "YYY";
+                group.Footer = "ZZZ";
+                Create(group);
+                manager.Navigator.ReturnToGroupsPage();
+            }
+            SelectGroup(index);
             RemoveGroup();
             return this;
         }
         public GroupHelper UpdateGroup(GroupData newData, int a)
         {
             manager.Navigator.GoToGroupsPage();
+            if (! IsElementPresent(By.Name("selected[]")))
+            {
+                GroupData group = new GroupData("XXX");
+                group.Header = "YYY";
+                group.Footer = "ZZZ";
+                Create(group);
+                manager.Navigator.ReturnToGroupsPage();
+            }
             SelectGroup(a);
             EditGroup();
             FillGroupForm(newData);

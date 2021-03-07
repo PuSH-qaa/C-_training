@@ -23,6 +23,16 @@ namespace Addressbook_web_tests
         public ContactHelper UpdateContact(ContactData newData, int i)
         {
             manager.Navigator.GoToHomePage();
+            if (! IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                AddNewContact();
+                ContactData contact = new ContactData("FirstName");
+                contact.Middlename = "MiddleName";
+                contact.Middlename = "LastName";
+                FillContactForm(contact);
+                SubmitContactCreation();
+                manager.Navigator.ReturnToHomePage();
+            }
             EditContact(i);
             FillContactForm(newData);
             SubmitContactUpdating();
@@ -31,6 +41,16 @@ namespace Addressbook_web_tests
         public ContactHelper Remove(int n)
         {
             manager.Navigator.GoToHomePage();
+            if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                AddNewContact();
+                ContactData contact = new ContactData("FirstName");
+                contact.Middlename = "MiddleName";
+                contact.Middlename = "LastName";
+                FillContactForm(contact);
+                SubmitContactCreation();
+                manager.Navigator.ReturnToHomePage();
+            }
             SelectContact(n);
             RemoveContact();
             AcceptRemoving();

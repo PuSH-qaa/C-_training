@@ -30,20 +30,33 @@ namespace Addressbook_web_tests
             if (driver.Url == baseURL + "/group.php" 
                 && IsElementPresent(By.Name("new")))
             {
-
+                return;
             }
             driver.FindElement(By.LinkText("groups")).Click();
         }
         public void ReturnToGroupsPage()
         {
+            if (driver.Url == baseURL + "/group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("group page")).Click();
         }
         public void GoToHomePage()
         {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("home")).Click();
         }
         public void ReturnToHomePage()
         {
+            if (driver.Url == baseURL)
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("home page")).Click();
         }
 
