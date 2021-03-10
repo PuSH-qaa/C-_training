@@ -17,7 +17,9 @@ namespace Addressbook_web_tests
             newData.Header = "999";
             newData.Footer = "888";
 
-            app.Groups.UpdateGroup(newData, 1);
+            app.Groups.CheckAndCreateGroupIfItIsNotExist();
+
+            app.Groups.UpdateGroup(newData, 0);
             app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }

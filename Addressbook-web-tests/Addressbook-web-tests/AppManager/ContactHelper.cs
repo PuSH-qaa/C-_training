@@ -22,7 +22,7 @@ namespace Addressbook_web_tests
         }
         public ContactHelper UpdateContact(ContactData newData, int i)
         {
-            CheckAndCreateContactIfItIsNotExist();
+
             EditContact(i);
             FillContactForm(newData);
             SubmitContactUpdating();
@@ -31,21 +31,20 @@ namespace Addressbook_web_tests
 
         public ContactHelper Remove(int n)
         {
-            CheckAndCreateContactIfItIsNotExist();
             SelectContact(n);
             RemoveContact();
             AcceptRemoving();
             return this;
         }
-        private void CheckAndCreateContactIfItIsNotExist()
+        public void CheckAndCreateContactIfItIsNotExist()
         {
             manager.Navigator.GoToHomePage();
             if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
                 AddNewContact();
-                ContactData contact = new ContactData("FirstName");
-                contact.Middlename = "MiddleName";
-                contact.Middlename = "LastName";
+                ContactData contact = new ContactData("OldName1");
+                contact.Middlename = "OldName2";
+                contact.Lastname = "OldName3";
                 FillContactForm(contact);
                 SubmitContactCreation();
                 manager.Navigator.ReturnToHomePage();

@@ -17,6 +17,8 @@ namespace Addressbook_web_tests
             newData.Middlename = "MiddleName";
             newData.Lastname = "LastName";
 
+            app.Contacts.CheckAndCreateContactIfItIsNotExist();
+
             app.Contacts.UpdateContact(newData, 1);
             app.Navigator.ReturnToHomePage();
             app.Auth.Logout();
