@@ -18,12 +18,11 @@ namespace Addressbook_web_tests
             newData.Header = "999";
             newData.Footer = "888";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
             app.Groups.CheckAndCreateGroupIfItIsNotExist();
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.UpdateGroup(newData, 0);
-            app.Navigator.ReturnToGroupsPage();
             
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
@@ -33,6 +32,7 @@ namespace Addressbook_web_tests
 
             Assert.AreEqual(oldGroups, newGroups);
 
+            app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }
     }

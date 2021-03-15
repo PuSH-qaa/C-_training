@@ -25,10 +25,27 @@ namespace Addressbook_web_tests
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("selected[]"));
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                ICollection<IWebElement> fields = element.FindElements(By.TagName("td"));
+                int fieldIndex = 0;
+                string lastname = "";
+                string firstname = "";
+                foreach (IWebElement field in fields)
+                {
+                    fieldIndex++;
+
+                    if (fieldIndex == 2)
+                    {
+                        lastname = field.Text;
+                    }
+                    if (fieldIndex == 3)
+                    {
+                        firstname = field.Text;
+                    }
+                }
+                    contacts.Add(new ContactData(firstname, lastname));
             }
             return contacts;
         }
@@ -55,9 +72,8 @@ namespace Addressbook_web_tests
             if (!IsElementPresent(By.XPath("//img[@alt='Edit']")))
             {
                 AddNewContact();
-                ContactData contact = new ContactData("OldName1");
+                ContactData contact = new ContactData("OldName1", "OldName3");
                 contact.Middlename = "OldName2";
-                contact.Lastname = "OldName3";
                 FillContactForm(contact);
                 SubmitContactCreation();
                 manager.Navigator.ReturnToHomePage();
@@ -78,7 +94,7 @@ namespace Addressbook_web_tests
         }
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index+2) + "]/td")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -92,7 +108,7 @@ namespace Addressbook_web_tests
         }
         public ContactHelper EditContact(int contactIndex)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + contactIndex + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (contactIndex+1) + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactUpdating()

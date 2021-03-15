@@ -14,21 +14,20 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactUpdateTest()
         {
-            ContactData newData = new ContactData("FirstName");
-            newData.Middlename = "MiddleName";
-            newData.Lastname = "LastName";
-
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData newData = new ContactData("FirstNameUpdate", "LastNameUpdate");
+            newData.Middlename = "MiddleUpdate";
 
             app.Contacts.CheckAndCreateContactIfItIsNotExist();
 
-            app.Contacts.UpdateContact(newData, 1);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.UpdateContact(newData, 0);
             app.Navigator.ReturnToHomePage();
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
-            oldContacts[1].Firstname = newData.Firstname;
-            oldContacts[1].Lastname = newData.Lastname;
+            oldContacts[0].Firstname = newData.Firstname;
+            oldContacts[0].Lastname = newData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
 

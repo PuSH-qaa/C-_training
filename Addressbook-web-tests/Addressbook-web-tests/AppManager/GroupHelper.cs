@@ -27,13 +27,14 @@ namespace Addressbook_web_tests
 
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements)
-            {
-                groups.Add(new GroupData(element.Text));
-            }
+             List<GroupData> groups = new List<GroupData>();
+             manager.Navigator.GoToGroupsPage();
+             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+             foreach (IWebElement element in elements)
+             {
+                 groups.Add(new GroupData(element.Text));
+             }
+
             return groups;
         }
 
@@ -104,6 +105,10 @@ namespace Addressbook_web_tests
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
+        }
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.XPath("//input[@name='selected[]']")).Count;
         }
     }
 }

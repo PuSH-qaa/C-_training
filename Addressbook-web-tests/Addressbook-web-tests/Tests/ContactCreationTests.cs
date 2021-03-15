@@ -15,9 +15,8 @@ namespace Addressbook_web_tests
         public void ContactCreationTest()
         {
 
-            ContactData contact = new ContactData("FirstName");
+            ContactData contact = new ContactData("1stName", "Lostname");
             contact.Middlename = "MiddleName";
-            contact.Lastname = "LastName";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
@@ -25,7 +24,7 @@ namespace Addressbook_web_tests
                .AddNewContact()
                .FillContactForm(contact)
                .SubmitContactCreation();
-            
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts.Add(contact);
@@ -33,7 +32,6 @@ namespace Addressbook_web_tests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
 
-            app.Navigator.ReturnToHomePage();
             app.Auth.Logout();
         }
     }

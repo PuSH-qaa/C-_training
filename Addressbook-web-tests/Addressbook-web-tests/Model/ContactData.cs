@@ -10,11 +10,12 @@ namespace Addressbook_web_tests
     {
         private string firstname;
         private string middlename = "";
-        private string lastname = "Lastname";
+        private string lastname;
 
-        public ContactData(string firstname)
+        public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
+            this.lastname = lastname;
         }
 
         public bool Equals(ContactData other)

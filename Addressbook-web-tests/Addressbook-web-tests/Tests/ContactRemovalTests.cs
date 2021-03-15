@@ -20,12 +20,12 @@ namespace Addressbook_web_tests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.Remove(2);
+            app.Contacts.Remove(0);
             app.Navigator.GoToHomePage();
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
-            oldContacts.RemoveAt(1);
+            oldContacts.RemoveAt(0);
 
             Assert.AreEqual(oldContacts, newContacts);
 
