@@ -24,6 +24,9 @@ namespace Addressbook_web_tests
                .AddNewContact()
                .FillContactForm(contact)
                .SubmitContactCreation();
+            app.Navigator.ReturnToHomePage();
+
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 

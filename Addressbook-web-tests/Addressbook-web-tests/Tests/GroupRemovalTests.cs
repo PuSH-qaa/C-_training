@@ -21,6 +21,9 @@ namespace Addressbook_web_tests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Remove(0);
+            app.Navigator.ReturnToGroupsPage();
+
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
@@ -29,7 +32,6 @@ namespace Addressbook_web_tests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }
     } 

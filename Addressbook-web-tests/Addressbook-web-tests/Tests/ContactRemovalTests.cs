@@ -23,6 +23,8 @@ namespace Addressbook_web_tests
             app.Contacts.Remove(0);
             app.Navigator.GoToHomePage();
 
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts.RemoveAt(0);

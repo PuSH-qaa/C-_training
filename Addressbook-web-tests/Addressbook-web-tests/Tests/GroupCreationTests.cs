@@ -23,7 +23,10 @@ namespace Addressbook_web_tests
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.Create(group);
+            app.Groups.Create(group); 
+            app.Navigator.ReturnToGroupsPage();
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
@@ -31,7 +34,6 @@ namespace Addressbook_web_tests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }
         [Test]
@@ -45,6 +47,9 @@ namespace Addressbook_web_tests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+            app.Navigator.ReturnToGroupsPage();
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
@@ -52,7 +57,6 @@ namespace Addressbook_web_tests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }
         [Test]
@@ -66,6 +70,9 @@ namespace Addressbook_web_tests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+            app.Navigator.ReturnToGroupsPage();
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
@@ -73,7 +80,6 @@ namespace Addressbook_web_tests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            app.Navigator.ReturnToGroupsPage();
             app.Auth.Logout();
         }
     }
