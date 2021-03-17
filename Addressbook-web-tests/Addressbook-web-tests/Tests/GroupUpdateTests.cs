@@ -14,13 +14,14 @@ namespace Addressbook_web_tests
         [Test]
         public void GroupUpdateTest()
         {
-            GroupData newData = new GroupData("000");
+            GroupData newData = new GroupData("123");
             newData.Header = "999";
             newData.Footer = "888";
 
             app.Groups.CheckAndCreateGroupIfItIsNotExist();
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
 
             app.Groups.UpdateGroup(newData, 0);
             app.Navigator.ReturnToGroupsPage();
@@ -33,6 +34,14 @@ namespace Addressbook_web_tests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach(GroupData group in newGroups)
+            {
+                if(group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, group.Name);
+                }
+            }
 
             app.Auth.Logout();
         }
