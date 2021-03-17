@@ -26,26 +26,13 @@ namespace Addressbook_web_tests
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+
             foreach (IWebElement element in elements)
             {
-                ICollection<IWebElement> fields = element.FindElements(By.TagName("td"));
-                int fieldIndex = 0;
-                string lastname = "";
-                string firstname = "";
-                foreach (IWebElement field in fields)
-                {
-                    fieldIndex++;
-
-                    if (fieldIndex == 2)
-                    {
-                        lastname = field.Text;
-                    }
-                    if (fieldIndex == 3)
-                    {
-                        firstname = field.Text;
-                    }
-                }
-                    contacts.Add(new ContactData(firstname, lastname));
+                IList<IWebElement> fields = element.FindElements(By.TagName("td"));
+                string lastname = fields[1].Text;
+                string firstname = fields[2].Text;
+                contacts.Add(new ContactData(firstname, lastname));
             }
             return contacts;
         }

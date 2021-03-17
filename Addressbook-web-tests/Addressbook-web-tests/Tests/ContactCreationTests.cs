@@ -15,7 +15,7 @@ namespace Addressbook_web_tests
         public void ContactCreationTest()
         {
 
-            ContactData contact = new ContactData("1stName", "Lostname");
+            ContactData contact = new ContactData("1stName", "2ndName");
             contact.Middlename = "MiddleName";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
