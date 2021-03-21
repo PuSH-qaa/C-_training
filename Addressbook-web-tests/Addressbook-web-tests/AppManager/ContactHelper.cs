@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
 
 namespace Addressbook_web_tests
 {
@@ -33,20 +34,33 @@ namespace Addressbook_web_tests
             };
         }
 
+        internal ContactData GetContactInformationFromDetails(int detailsIndex)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToDetails(detailsIndex);
+            string allData = driver.FindElement(By.Id("content")).Text;
+            return new ContactData("", "")
+            {
+                AllData = allData
+            };
+        }
+
         internal ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
             EditContact(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
 
-            return new ContactData(firstName, lastname)
+            return new ContactData(firstName, lastName)
             {
+                Middlename = middleName,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
@@ -154,6 +168,20 @@ namespace Addressbook_web_tests
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
             contactCache = null;
+            return this;
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
+
+        public ContactHelper GoToDetails(int detailsIndex)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (detailsIndex + 1) + "]")).Click();
             return this;
         }
     }

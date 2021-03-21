@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Addressbook_web_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string allData;
 
         public ContactData(string firstname, string lastname)
         {
@@ -83,13 +85,33 @@ namespace Addressbook_web_tests
             }
         }
 
+        public string AllData
+        {
+            get
+            {
+                if (allData != null)
+                {
+                    return allData;
+                }
+                else
+                {
+                    return (Firstname + " " + Middlename + " " + Lastname + "\r\n" + Address + "\r\n" + "\r\n" + "H: " + HomePhone + "\r\n" +
+                        "M: " + MobilePhone + "\r\n" + "W: " + WorkPhone).Trim();
+                }
+            }
+            set
+            {
+                allData = value;
+            }
+        }
+
         private string CleanUp(string phone)
         {
             if (phone == null || phone == "")
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
     }
 }

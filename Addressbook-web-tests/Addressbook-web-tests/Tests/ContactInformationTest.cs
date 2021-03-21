@@ -13,7 +13,7 @@ namespace Addressbook_web_tests
 
 
         [Test]
-        public void TestContactInformation()
+        public void TestContactInformationTable()
         {
             ContactData fromTable = app.Contacts.GetContactInformationFromTable(2);
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(2);
@@ -23,6 +23,16 @@ namespace Addressbook_web_tests
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+        }
+
+        [Test]
+        public void TestContactInformationDetails()
+        {
+            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(2);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(2);
+
+            //Verification
+            Assert.AreEqual(fromDetails.AllData, fromForm.AllData);
         }
     }
 }
