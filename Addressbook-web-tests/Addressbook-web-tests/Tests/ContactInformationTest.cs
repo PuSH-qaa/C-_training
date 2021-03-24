@@ -23,6 +23,7 @@ namespace Addressbook_web_tests
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+            Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace Addressbook_web_tests
 
             //Verification
             Assert.AreEqual(fromDetails.AllData, fromForm.AllData);
-        }
+        } 
     }
 }
 
