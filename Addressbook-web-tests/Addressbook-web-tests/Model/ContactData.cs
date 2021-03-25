@@ -121,8 +121,9 @@ namespace Addressbook_web_tests
                 }
                 else
                 {
-                    return (Firstname + " " + Middlename + " " + Lastname + "\r\n" + Address + "\r\n" + "\r\n" + "H: " + HomePhone + "\r\n" +
-                        "M: " + MobilePhone + "\r\n" + "W: " + WorkPhone + "\r\n" + "\r\n" + Email0 + "\r\n" + Email1 + "\r\n" + Email2).Trim();
+                    return (NameRowUpdate(Firstname, Middlename, Lastname) + AddressRowUpdate(Address) + 
+                        NewBlockRedirect(HomePhone, MobilePhone, WorkPhone) + Email0RowUpdate(Email0) + 
+                        Email1RowUpdate(Email1) + Email2RowUpdate(Email2)).Trim();
                 }
             }
             set
@@ -138,6 +139,96 @@ namespace Addressbook_web_tests
                 return "";
             }
             return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
+
+        private string NameRowUpdate(string firstname, string middlename, string lastname)
+        {
+            if ( firstname == null || firstname == "")
+            {
+                if( middlename == null || middlename == "")
+                {
+                    if(lastname == null || lastname == "")
+                    {
+                        return "";
+                    }
+                    return Regex.Replace(lastname, @"\s+", " ").Trim() + "\r\n";
+                }
+                return Regex.Replace(middlename + " " + lastname, @"\s+", " ").Trim() + "\r\n";
+            }
+            string names = firstname + " " + middlename + " " + lastname + "\r\n";
+            return Regex.Replace(names, @"\s+", " ").Trim() + "\r\n"; 
+        }
+
+        private string AddressRowUpdate(string address)
+        {
+            if ( address == null || address == "")
+            {
+                return "\r\n";            
+            }
+            return Regex.Replace(address, @"\s+", " ").Trim() + "\r\n" + "\r\n";
+        }
+
+        private string HomePhoneRowUpdate(string home)
+        {
+            if( home == null || home == "")
+            {
+                return "";
+            }
+            return Regex.Replace("H: " + home, @"\s+", " ").Trim() + "\r\n";
+        }
+
+        private string MobilePhoneRowUpdate(string mobile)
+        {
+            if (mobile == null || mobile == "")
+            {
+                return "";
+            }
+            return Regex.Replace("M: " + mobile, @"\s+", " ").Trim() + "\r\n";
+        }
+
+        private string WorkPhoneRowUpdate(string work)
+        {
+            if (work == null || work == "")
+            {
+                return "";
+            }
+            return Regex.Replace("W: " + work, @"\s+", " ").Trim() + "\r\n";
+        }
+
+        private string NewBlockRedirect(string home, string mobile, string work)
+        {
+            if ((home == null || home == "") && (mobile == null || mobile == "") && (work == null || work == ""))
+            {
+                return "";
+            }
+            return HomePhoneRowUpdate(home) + MobilePhoneRowUpdate(mobile) + WorkPhoneRowUpdate(work) + "\r\n";
+        }
+
+        private string Email0RowUpdate(string email0)
+        {
+            if ( email0 == null || email0 == "")
+            {
+                return "";
+            }
+            return Regex.Replace(email0, @"\s+", " ").Trim() + "\r\n";
+        }
+
+        private string Email1RowUpdate(string email1)
+        {
+            if (email1 == null || email1 == "")
+            {
+                return "";
+            }
+            return Regex.Replace(email1, @"\s+", " ").Trim() + "\r\n";
+        }
+
+        private string Email2RowUpdate(string email2)
+        {
+            if (email2 == null || email2 == "")
+            {
+                return "";
+            }
+            return Regex.Replace(email2, @"\s+", " ").Trim() + "\r\n";
         }
     }
 }
