@@ -102,7 +102,7 @@ namespace Addressbook_web_tests
                 }
                 else
                 {
-                    return (Email0 + "\r\n" + Email1 + "\r\n" + Email2).Trim();
+                    return (EmailRowUpdate(Email0) + EmailRowUpdate(Email1) + EmailRowUpdate(Email2)).Trim();
                 }
             }
             set
@@ -122,8 +122,8 @@ namespace Addressbook_web_tests
                 else
                 {
                     return (NameRowUpdate(Firstname, Middlename, Lastname) + AddressRowUpdate(Address) + 
-                        NewBlockRedirect(HomePhone, MobilePhone, WorkPhone) + Email0RowUpdate(Email0) + 
-                        Email1RowUpdate(Email1) + Email2RowUpdate(Email2)).Trim();
+                        NewBlockRedirect(HomePhone, MobilePhone, WorkPhone) + EmailRowUpdate(Email0) +
+                        EmailRowUpdate(Email1) + EmailRowUpdate(Email2)).Trim();
                 }
             }
             set
@@ -138,7 +138,8 @@ namespace Addressbook_web_tests
             {
                 return "";
             }
-            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+            return Regex.Replace(phone, "[-( )]", "") + "\r\n";
+            //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
         private string NameRowUpdate(string firstname, string middlename, string lastname)
@@ -204,31 +205,13 @@ namespace Addressbook_web_tests
             return HomePhoneRowUpdate(home) + MobilePhoneRowUpdate(mobile) + WorkPhoneRowUpdate(work) + "\r\n";
         }
 
-        private string Email0RowUpdate(string email0)
+        private string EmailRowUpdate(string email)
         {
-            if ( email0 == null || email0 == "")
+            if ( email == null || email == "")
             {
                 return "";
             }
-            return Regex.Replace(email0, @"\s+", " ").Trim() + "\r\n";
-        }
-
-        private string Email1RowUpdate(string email1)
-        {
-            if (email1 == null || email1 == "")
-            {
-                return "";
-            }
-            return Regex.Replace(email1, @"\s+", " ").Trim() + "\r\n";
-        }
-
-        private string Email2RowUpdate(string email2)
-        {
-            if (email2 == null || email2 == "")
-            {
-                return "";
-            }
-            return Regex.Replace(email2, @"\s+", " ").Trim() + "\r\n";
+            return Regex.Replace(email, @"\s+", " ").Trim() + "\r\n";
         }
     }
 }

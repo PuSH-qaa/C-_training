@@ -36,7 +36,7 @@ namespace Addressbook_web_tests
                 groups.Add(new GroupData(parts[0])
                 {
                     Header = parts[1],
-                    Footer = parts[0]
+                    Footer = parts[2]
                 });
             }
             return groups;
