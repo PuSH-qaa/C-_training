@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfGroupData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GroupData>
+    <Name>-X</Name>
+    <Header>[8H]/&gt;U</Header>
+    <Footer>;C</Footer>
+  </GroupData>
+  <GroupData>
+    <Name>W5DR</Name>
+    <Header>E?K3MN</Header>
+    <Footer>'.R0@</Footer>
+  </GroupData>
+</ArrayOfGroupData>

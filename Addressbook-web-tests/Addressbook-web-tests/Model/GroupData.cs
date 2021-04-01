@@ -38,7 +38,7 @@ namespace Addressbook_web_tests
 
         public override string ToString()
         {
-            return "name=" + Name + "\nheader=" + Header + "\nfooter" + Footer;
+            return "name=" + Name + "\nheader=" + Header + "\nfooter=" + Footer;
         }
 
         public int CompareTo(GroupData other)
