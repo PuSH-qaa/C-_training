@@ -25,6 +25,8 @@ namespace Addressbook_web_tests
             return this;
         }
 
+
+
         private List<GroupData> groupCache = null;
 
         public List<GroupData> GetGroupList()
@@ -42,7 +44,6 @@ namespace Addressbook_web_tests
                     });
                 }
             }
-
             return new List<GroupData>(groupCache);
         }
 
@@ -52,9 +53,26 @@ namespace Addressbook_web_tests
             RemoveGroup();
             return this;
         }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            SelectGroup(group.Id);
+            RemoveGroup();
+            return this;
+        }
+
         public GroupHelper UpdateGroup(GroupData newData, int a)
         {
             SelectGroup(a);
+            EditGroup();
+            FillGroupForm(newData);
+            SubmitGroupUpdating();
+            return this;
+        }
+
+        public GroupHelper UpdateGroup(GroupData newData, GroupData group)
+        {
+            SelectGroup(group.Id);
             EditGroup();
             FillGroupForm(newData);
             SubmitGroupUpdating();
@@ -99,6 +117,13 @@ namespace Addressbook_web_tests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();

@@ -36,6 +36,7 @@ namespace Addressbook_web_tests
             };
         }
 
+
         internal ContactData GetContactInformationFromDetails(int detailsIndex)
         {
             manager.Navigator.GoToHomePage();
@@ -126,6 +127,13 @@ namespace Addressbook_web_tests
             AcceptRemoving();
             return this;
         }
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.id);
+            RemoveContact();
+            AcceptRemoving();
+            return this;
+        }
         public void CheckAndCreateContactIfItIsNotExist()
         {
             manager.Navigator.GoToHomePage();
@@ -163,6 +171,11 @@ namespace Addressbook_web_tests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index+2) + "]/td")).Click();
+            return this;
+        }
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("//input[@id='" + id + "']")).Click();
             return this;
         }
         public ContactHelper RemoveContact()

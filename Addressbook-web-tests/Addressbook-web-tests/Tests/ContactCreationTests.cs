@@ -69,7 +69,7 @@ namespace Addressbook_web_tests
         public void ContactCreationTest(ContactData contact)
         {
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contacts
                .AddNewContact()
@@ -79,14 +79,28 @@ namespace Addressbook_web_tests
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
 
-            app.Auth.Logout();
+            //app.Auth.Logout();
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> fromUi = app.Contacts.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine("From UI   " + end.Subtract(start));
+
+            start = DateTime.Now;
+            List<ContactData> fromDb = ContactData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine("From DB   " + end.Subtract(start));
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Addressbook_web_tests
             app.Contacts.CheckAndCreateContactIfItIsNotExist();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData oldData = oldContacts[0];
 
             app.Contacts.UpdateContact(newData, 0);
             app.Navigator.ReturnToHomePage();

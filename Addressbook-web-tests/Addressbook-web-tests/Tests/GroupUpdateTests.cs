@@ -8,29 +8,29 @@ using NUnit.Framework;
 namespace Addressbook_web_tests
 {
     [TestFixture]
-    public class GroupUpdateTests : AuthTestBase
+    public class GroupUpdateTests : GroupTestBase
     {
  
         [Test]
         public void GroupUpdateTest()
         {
-            GroupData newData = new GroupData("123");
+            GroupData newData = new GroupData("111");
             newData.Header = "999";
             newData.Footer = "888";
 
             app.Groups.CheckAndCreateGroupIfItIsNotExist();
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData oldData = oldGroups[0];
 
-            app.Groups.UpdateGroup(newData, 0);
+            app.Groups.UpdateGroup(newData, oldData);
             app.Navigator.ReturnToGroupsPage();
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
-            oldGroups[0].Name = newData.Name;
+            oldData.Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
@@ -43,7 +43,7 @@ namespace Addressbook_web_tests
                 }
             }
 
-            app.Auth.Logout();
+            //app.Auth.Logout();
         }
     }
 }
