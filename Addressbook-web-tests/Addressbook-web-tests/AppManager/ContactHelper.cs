@@ -120,6 +120,14 @@ namespace Addressbook_web_tests
             return this;
         }
 
+        public ContactHelper UpdateContact(ContactData newData, ContactData contact)
+        {
+            EditContact(contact.id);
+            FillContactForm(newData);
+            SubmitContactUpdating();
+            return this;
+        }
+
         public ContactHelper Remove(int n)
         {
             SelectContact(n);
@@ -191,6 +199,13 @@ namespace Addressbook_web_tests
         public ContactHelper EditContact(int contactIndex)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (contactIndex+1) + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper EditContact(string id)
+        {
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'and @href='edit.php?id=" + id + "'])")).Click();
+            driver.FindElement(By.XPath("//tr[@name='entry']//a[@href='edit.php?id=" + id + "']")).Click();
             return this;
         }
         public ContactHelper SubmitContactUpdating()
