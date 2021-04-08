@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Addressbook_web_tests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTetsBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
