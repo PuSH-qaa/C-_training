@@ -60,5 +60,10 @@ namespace Addressbook_web_tests
             driver.FindElement(By.LinkText("home page")).Click();
         }
 
+        public void ReturnToGroup()
+        {
+            driver.FindElement(By.CssSelector("i > a")).Click();
+        }
+
     }
 }

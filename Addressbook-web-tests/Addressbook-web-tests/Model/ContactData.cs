@@ -91,7 +91,10 @@ namespace Addressbook_web_tests
         public string Email2 { get; set; }
 
         [Column(Name = "id"), PrimaryKey, Identity]
-        public string id { get; set; }
+        public string Id { get; set; }
+
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
         public string AllPhones 
         { 
@@ -238,7 +241,7 @@ namespace Addressbook_web_tests
         {
             using (AddressbookDB db = new AddressbookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from c in db.Contacts.Where( x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
     }
